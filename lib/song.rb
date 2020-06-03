@@ -44,9 +44,9 @@ class Song
   def self.new_from_filename(filename)
   	#ex. "Taylor Swift - Blank Space.mp3"
   	song = Song.new
-  	song_hsh = song.filename_parser(filename)
-  	song.name = song_hsh[:name]
-  	song.artist_name = song_hsh[:artist_name]
+  	song_ary = filename.split(" - ")
+  	song.artist_name = song_ary[0]
+  	song.name = song_ary[1].delete_suffix(".mp3")
   	song
   end
 
@@ -56,14 +56,6 @@ class Song
 
   def self.destroy_all
   	self.all.clear
-  end
-
-  def filename_parser(filename)
-  	song_hsh = {}
-  	song_ary = filename.split(" - ")
-  	song_hsh[:artist_name] = song_ary[0]
-  	song_hsh[:name] = song_ary[1].delete_suffix(".mp3")
-  	song_hsh
   end
 
   def save
